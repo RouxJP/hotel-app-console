@@ -1,10 +1,11 @@
-var service = require('./service');
+const service = require('./service');
+//var requestPromise = require('request-promise-native');
 
 
-var readline = require('readline');
+const readline = require('readline');
 
 // création d'un objet `rl` permettant de récupérer la saisie utilisateur
-var rl = readline.createInterface({
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 
@@ -13,7 +14,7 @@ var rl = readline.createInterface({
 
 function startMenu() {
 
-    var menu = `
+    const menu = `
     1. Liste des clients
     2. Ajouter clients
     3. Rechercher un client par nom
@@ -21,7 +22,7 @@ function startMenu() {
     99. Quitter
      `;
 
-    rl.question( menu, function (choix) {
+    rl.question( menu, choix => {
    
         // 3
         console.log(`Vous avez saisi : ${choix}`);
@@ -32,31 +33,25 @@ function startMenu() {
             rl.close(); // attention, une fois l'interface fermée, la saisie n'est plus
 
         } else if(choix === '1') {
-               service.listerClients( function( data){
-                // ici
-                // on a eu la réponse
-                // les données sont dans data
-                data.forEach( function( unPost) {
-                    console.log( unPost.uuid +  "-" + unPost.nom +  "-" + unPost.prenoms);
-
-                });
-                
-                service.ajouterClients( function( data){                
-                         console.log( "Le client " + data + " a été ajouté ");
-    
-                    });
-    
-                });                
-
-                startMenu();
-
-                
-            });
-
             
-        }
+               
+               service.listerClients( data => {
+                    // ici
+                    // on a eu la réponse
+                    // les données sont dans data
+                    data.forEach(   unPost =>  {
+                                    console.log( `${unPost.uuid}-${unPost.nom}-${unPost.prenoms}`) });
+                    
+    
+                    startMenu();
+
+                    
+                });
+        
        
-    });
+        }
+    })
+
 }
 
 startMenu();
