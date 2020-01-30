@@ -4,7 +4,7 @@ var request = require('request');
 
 // callback hell
 // enfer
-function listerClients(callbackFn) {
+function listerClients( callbackFn) {
 
     request('https://paie-app.herokuapp.com/clients', { json: true }, function (err, res, data) {
         
@@ -14,5 +14,6 @@ function listerClients(callbackFn) {
     });
 
 }
+
 
 exports.listerClients = listerClients;

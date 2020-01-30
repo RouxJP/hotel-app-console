@@ -14,11 +14,14 @@ var rl = readline.createInterface({
 function startMenu() {
 
     var menu = `
-     1. Liste des clients
-     99. Quitter
+    1. Liste des clients
+    2. Ajouter clients
+    3. Rechercher un client par nom
+    4. Vérifier la disponibilité d'une chambre
+    99. Quitter
      `;
 
-    rl.question(menu, function (choix) {
+    rl.question( menu, function (choix) {
    
         // 3
         console.log(`Vous avez saisi : ${choix}`);
@@ -37,6 +40,13 @@ function startMenu() {
                     console.log( unPost.uuid +  "-" + unPost.nom +  "-" + unPost.prenoms);
 
                 });
+                
+                service.ajouterClients( function( data){                
+                         console.log( "Le client " + data + " a été ajouté ");
+    
+                    });
+    
+                });                
 
                 startMenu();
 
